@@ -1,10 +1,10 @@
-//Require
+
 
 const mon = require("mongoose");
 const Schema = mon.Schema;
 
 //New Schema
-//Corelate to seeder.js
+//Correlate to seeder.js
 const WorkoutSchema = new Schema({
   day: {
     type: Date,
@@ -41,6 +41,11 @@ const WorkoutSchema = new Schema({
   ],
 totalDuration: {
     type: Number,
-    default: 0,
+    default: 0
 }
 });
+
+//Compiling Model
+const Workout = mon.model("Workout", WorkoutSchema);
+
+module.exports = Workout; 
