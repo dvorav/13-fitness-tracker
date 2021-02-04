@@ -33,3 +33,5 @@ app.get("/stats", (req, res) => {
 app.listen(PORT, () => {
     console.log('App is up and functioning!')
 })
+
+//Needs mongo setup
