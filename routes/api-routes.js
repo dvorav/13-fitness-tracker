@@ -5,28 +5,38 @@ module.exports = function (app) {
 
 
 
-    //get workouts
+//Get Route to find all exercises
     app.get("/api/workouts", (req, res) => {
 
         db.Workout.find({}).then(dbWorkout => {
-            // console.log("ALL WORKOUTS");
-            // console.log(dbWorkout);
             dbWorkout.forEach(workout => {
-                var total = 0;
-                workout.exercises.forEach(e => {
-                    total += e.duration;
+                let total = 0;
+                workout.exercises.forEach(a => {
+                    total += a.duration;
                 });
                 workout.totalDuration = total;
 
             });
 
             res.json(dbWorkout);
-        }).catch(err => {
-            res.json(err);
-        });
+        })
+        // .catch(err => {
+        //     res.json(err);
+        // });
     });
+ //Get Route
+ app.get("/api/workouts/range", (req, res) => {
 
-    // add exercise
+    db.Workout.find({}).then(dbWorkout => {
+        res.json(dbWorkout);
+    })
+    // .catch(err => {
+    //     res.json(err);
+    // });
+
+});
+
+ // Add an exercise
     app.put("/api/workouts/:id", (req, res) => {
 
         db.Workout.findOneAndUpdate(
@@ -37,38 +47,24 @@ module.exports = function (app) {
             },
             { new: true }).then(dbWorkout => {
                 res.json(dbWorkout);
-            }).catch(err => {
-                res.json(err);
-            });
+            })
+            // .catch(err => {
+            //     res.json(err);
+            // });
 
     });
 
-    //create workout
+ //Create a workout
     app.post("/api/workouts", ({ body }, res) => {
-        // console.log("WORKOUT TO BE ADDED");
-        // console.log(body);
-
         db.Workout.create(body).then((dbWorkout => {
             res.json(dbWorkout);
-        })).catch(err => {
-            res.json(err);
-        });
+        }))
+        // .catch(err => {
+        //     res.json(err);
+        // });
     });
 
-    // get workouts in range
-    app.get("/api/workouts/range", (req, res) => {
-
-        db.Workout.find({}).then(dbWorkout => {
-            console.log("ALL WORKOUTS");
-            console.log(dbWorkout);
-
-            res.json(dbWorkout);
-        }).catch(err => {
-            res.json(err);
-        });
-
-    });
-
+  
 
 }
 
