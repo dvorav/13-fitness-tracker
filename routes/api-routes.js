@@ -13,7 +13,10 @@ module.exports = (app) => {
         workout.totalDuration = zero;
       });
       res.json(dbWorkout);
-    });
+
+    }).catch(err => {
+            res.json(err);
+        });
   });
 
 //   //Create a workout route
@@ -25,3 +28,4 @@ module.exports = (app) => {
 
 
 };
+
