@@ -16,7 +16,6 @@ dbWorkout.forEach(workout => {
 })
 res.json(dbWorkout);
 })
-
 })
 
 //Create a workout route
@@ -24,11 +23,12 @@ app.post("/api/workouts", ({ body }, res) => {
     db.Workout.create(body).then((dbWorkout => {
         res.json(dbWorkout);
     }))
-   
+
+
 });
 
 
-
+ 
 
 
 
