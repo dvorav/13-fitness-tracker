@@ -4,6 +4,23 @@ const logger = require("morgan");
 const mongoose = require("mongoose");
 const path = require("path");
 
+//Needs mongo setup
+mongoose.connect(
+    process.env.MONGODB_URI || 'mongodb://localhost/workout',
+    {
+      useNewUrlParser: true,
+      useUnifiedTopology: true,
+      useCreateIndex: true,
+      useFindAndModify: false
+    }
+  );
+//
+
+//
+
+
+app.use(logger("dev"))
+
 //Port 300- Connection
 const PORT = process.env.PORT || 3000;
 
@@ -34,19 +51,3 @@ app.listen(PORT, () => {
     console.log('App is up and functioning!')
 })
 
-//Needs mongo setup
-mongoose.connect(
-    process.env.MONGODB_URI || 'mongodb://localhost/workout',
-    {
-      useNewUrlParser: true,
-      useUnifiedTopology: true,
-      useCreateIndex: true,
-      useFindAndModify: false
-    }
-  );
-//
-
-//
-
-
-app.use(logger("dev"))
