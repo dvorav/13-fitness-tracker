@@ -46,6 +46,6 @@ totalDuration: {
 });
 
 //Compiling Model
-const Workout = mon.model("Workout", WorkoutSchema);
+const workout = mon.model("Workout", WorkoutSchema);
 
-module.exports = Workout; 
+module.exports = workout; 
