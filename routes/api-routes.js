@@ -1,31 +1,66 @@
+
 const db = require("../models");
 
-module.exports = (app) => {
-  //Get exercise routes
-  app.get("/api/workouts", (req, res) => {
-    //Grabs all workout with find({})
-    db.Workout.find({}).then((dbWorkout) => {
-      dbWorkout.forEach((workout) => {
-        let zero = 0;
-        workout.exercises.forEach((e) => {
-          zero += e.duration;
-        });
-        workout.totalDuration = zero;
-      });
-      res.json(dbWorkout);
 
-    }).catch(err => {
+module.exports = function (app) {
+
+    //commnet in to prepopulate database
+    // db.Workout.find({}).then(function (res) {
+    //     console.log("Checking if db is populated");
+    //     if (res.length === 0) {
+    //         console.log("DB is empty");
+    //         require("./seeders/seed.js");
+    //     }
+    // });
+
+
+
+//
+    //get workouts
+    app.get("/api/workouts", (req, res) => {
+
+        db.Workout.find({}).then(dbWorkout => {
+            // console.log("ALL WORKOUTS");
+            // console.log(dbWorkout);
+            dbWorkout.forEach(workout => {
+                var total = 0;
+                workout.exercises.forEach(e => {
+                    total += e.duration;
+                });
+                workout.totalDuration = total;
+
+            });
+
+            res.json(dbWorkout);
+        }).catch(err => {
             res.json(err);
         });
-  });
-
-  //Create a workout route
-  app.post("/api/workouts", ({ body }, res) => {
-    db.Workout.create(body).then((dbWorkout) => {
-      res.json(dbWorkout);
     });
-  });
-      // get workouts in range
+//
+
+
+
+   
+
+
+//
+    //create workout
+    app.post("/api/workouts", ({ body }, res) => {
+        // console.log("WORKOUT TO BE ADDED");
+        // console.log(body);
+
+        db.Workout.create(body).then((dbWorkout => {
+            res.json(dbWorkout);
+        })).catch(err => {
+            res.json(err);
+        });
+    });
+//
+
+
+
+
+    // get workouts in range
     app.get("/api/workouts/range", (req, res) => {
 
         db.Workout.find({}).then(dbWorkout => {
@@ -33,7 +68,9 @@ module.exports = (app) => {
             console.log(dbWorkout);
 
             res.json(dbWorkout);
-        })
+        }).catch(err => {
+            res.json(err);
+        });
 
     });
  // add exercise
@@ -47,10 +84,10 @@ module.exports = (app) => {
         },
         { new: true }).then(dbWorkout => {
             res.json(dbWorkout);
-        })
+        }).catch(err => {
+            res.json(err);
+        });
 
 });
 
-
-};
-
+}
