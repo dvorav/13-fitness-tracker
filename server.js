@@ -47,3 +47,6 @@ mongoose.connect(
 //
 require("./routes/api-routes.js")(app);
 //
+
+
+app.use(logger("dev"))
