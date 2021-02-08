@@ -1,14 +1,11 @@
+const mongoose = require("mongoose");
 
+const Schema = mongoose.Schema;
 
-const mon = require("mongoose");
-const Schema = mon.Schema;
-
-//New Schema
-//Correlate to seeder.js
 const WorkoutSchema = new Schema({
   day: {
     type: Date,
-    default: Date.now,
+    default: Date.now
   },
   exercises: [
     {
@@ -23,29 +20,29 @@ const WorkoutSchema = new Schema({
       duration: Number,
       weight: {
         type: Number,
-        default: 0,
+        default: 0
       },
       reps: {
-          type: Number,
-          default: 0
+        type: Number,
+        default: 0
       },
       sets: {
-          type: Number, 
-          default: 0
+        type: Number,
+        default: 0
       },
       distance: {
-          type: Number, 
-          default: 0
+        type: Number,
+        default: 0
       }
     }
   ],
-totalDuration: {
+  totalDuration: {
     type: Number,
-    default: 0
-}
+    default: 0,
+  }
+
 });
 
-//Compiling Model
-const Workout = mon.model("Workout", WorkoutSchema);
+const Workout = mongoose.model("Workout", WorkoutSchema);
 
-module.exports = Workout; 
+module.exports = Workout;
